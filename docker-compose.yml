@@ -1,0 +1,103 @@
+version: '3.8'
+
+services:
+  # PostgreSQL база данных
+  postgres:
+    image: postgres:15-alpine
+    container_name: userdb_postgres
+    environment:
+      POSTGRES_DB: userdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - user_management_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # FastAPI Backend
+  backend:
+    build: ./backend
+    container_name: userdb_backend
+    environment:
+      DB_HOST: postgres
+      DB_NAME: userdb
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - user_management_network
+    volumes:
+      - ./backend:/app
+    restart: unless-stopped
+
+  # Nginx Frontend
+  frontend:
+    build: ./frontend
+    container_name: userdb_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - user_management_network
+    restart: unless-stopped
+
+  # Adminer - веб-интерфейс для управления БД
+  adminer:
+    image: adminer:latest
+    container_name: userdb_adminer
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - user_management_network
+    restart: unless-stopped
+
+  # Redis - кеширование сессий и защита от брутфорса
+  redis:
+    image: redis:7-alpine
+    container_name: userdb_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - user_management_network
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+# Постоянное хранилище для БД и Redis
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+# Сетевое взаимодействие между контейнерами
+networks:
+  user_management_network:
+    driver: bridge

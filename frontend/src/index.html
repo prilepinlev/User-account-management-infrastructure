@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление пользователями</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Система управления учётными записями</h1>
+            <div id="authButtons">
+                <button onclick="showLogin()">Вход</button>
+                <button onclick="showRegister()">Регистрация</button>
+            </div>
+            <div id="userInfo" style="display: none;">
+                <span id="username"></span>
+                <button onclick="logout()">Выход</button>
+            </div>
+        </header>
+
+        <!-- Форма входа -->
+        <div id="loginForm" class="form-container" style="display: block;">
+            <h2>Вход в систему</h2>
+            <form id="loginFormElement" onsubmit="login(event)">
+                <input type="text" id="loginUsername" placeholder="Имя пользователя" required>
+                <input type="password" id="loginPassword" placeholder="Пароль" required>
+                <button type="submit">Войти</button>
+                <p class="switch-form">Нет аккаунта? <a href="#" onclick="showRegister()">Зарегистрироваться</a></p>
+            </form>
+        </div>
+
+        <!-- Форма регистрации -->
+        <div id="registerForm" class="form-container" style="display: none;">
+            <h2>Регистрация</h2>
+            <form id="registerFormElement" onsubmit="register(event)">
+                <input type="text" id="regUsername" placeholder="Имя пользователя" required>
+                <input type="email" id="regEmail" placeholder="Email" required>
+                <input type="password" id="regPassword" placeholder="Пароль" required>
+                <button type="submit">Зарегистрироваться</button>
+                <p class="switch-form">Есть аккаунт? <a href="#" onclick="showLogin()">Войти</a></p>
+            </form>
+        </div>
+
+        <!-- Список пользователей -->
+        <div id="usersList" style="display: none;">
+            <h2>Список пользователей</h2>
+            <button onclick="loadUsers()" class="refresh-btn">Обновить</button>
+            <table id="usersTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Имя пользователя</th>
+                        <th>Email</th>
+                        <th>Роль</th>
+                        <th>Дата создания</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody id="usersTableBody">
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Админ-панель -->
+        <div id="adminPanel" style="display: none;">
+            <h2>Админ-панель</h2>
+            <div class="admin-actions">
+                <button onclick="window.open('http://localhost:8080', '_blank')" class="admin-btn">
+                    Открыть Adminer (управление БД)
+                </button>
+                <button onclick="loadRedisStats()" class="admin-btn" style="background: #dc3545;">
+                    Статистика Redis (5-й контейнер)
+                </button>
+                <div class="db-info">
+                    <p><strong>База данных:</strong> PostgreSQL</p>
+                    <p><strong>Сервер:</strong> postgres</p>
+                    <p><strong>БД:</strong> userdb</p>
+                    <p><strong>Пользователь:</strong> postgres</p>
+                </div>
+                <div id="redisStats" class="db-info" style="display: none; background: #fff3cd;">
+                    <h3>📊 Redis Статистика</h3>
+                    <div id="redisStatsContent"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="message" class="message"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

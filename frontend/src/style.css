@@ -1,0 +1,289 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 28px;
+}
+
+#authButtons button,
+#userInfo button {
+    background: white;
+    color: #667eea;
+    border: none;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+#authButtons button:hover,
+#userInfo button:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+#userInfo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#username {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.form-container {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 30px;
+}
+
+.form-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-container input {
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: border 0.3s;
+}
+
+.form-container input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.form-container button {
+    padding: 12px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.form-container button:hover {
+    transform: translateY(-2px);
+}
+
+.switch-form {
+    text-align: center;
+    margin-top: 10px;
+    color: #666;
+}
+
+.switch-form a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#usersList {
+    padding: 30px;
+}
+
+#usersList h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.refresh-btn {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.refresh-btn:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+tbody tr:hover {
+    background: #f8f8f8;
+}
+
+.role {
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.role.admin {
+    background: #ffd700;
+    color: #333;
+}
+
+.role.user {
+    background: #e0e0e0;
+    color: #333;
+}
+
+.delete-btn {
+    background: #ff4444;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s;
+}
+
+.delete-btn:hover {
+    background: #cc0000;
+    transform: translateY(-2px);
+}
+
+#adminPanel {
+    padding: 30px;
+    background: #f8f8f8;
+    border-top: 2px solid #e0e0e0;
+}
+
+#adminPanel h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.admin-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.admin-btn {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s;
+    max-width: 300px;
+}
+
+.admin-btn:hover {
+    background: #218838;
+    transform: translateY(-2px);
+}
+
+.db-info {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.db-info p {
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    border-radius: 5px;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: none;
+}
+
+.message.success {
+    background: #28a745;
+    color: white;
+}
+
+.message.error {
+    background: #dc3545;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    table {
+        font-size: 12px;
+    }
+    
+    th, td {
+        padding: 10px;
+    }
+}
